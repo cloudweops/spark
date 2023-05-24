@@ -1,0 +1,8 @@
+pkg: github.com/cloudweops/spark
+name: spark
+description: my blog
+enable_mysql: false
+enable_mongodb: true
+gen_example: true
+http_framework: go-restful
+enable_cache: false

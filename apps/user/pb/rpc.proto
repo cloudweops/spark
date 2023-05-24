@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+package cloudweops.spark.user;
+option go_package = "github.com/cloudweops/spark/apps/user";
+

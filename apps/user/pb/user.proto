@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package cloudweops.spark.user;
+option go_package = "github.com/cloudweops/spark/apps/user";
+
+import "google/protobuf/any.proto";
+
+service RPC {
+    rpc LoadInsertUser(User) returns(User);
+	rpc UpdateUser(UpdateUserRequest) returns(User);
+}
+
+message UpdateUserRequest{
+    string name = 1;
+    map<string,google.protobuf.Any> fields = 2;
+}
+
+// User 用户账号
+message User {
+    // 用户名
+    // @gotags: bson:"username" json:"username"
+    string username = 1;
+    // 密码
+    // @gotags: bson:"password" json:"password"
+    string password = 2;
+    // 邮箱地址
+    // @gotags: bson:"email" json:"email"
+    string email = 3;
+    // 手机号码
+    // @gotags: bson:"phone_number" json:"phone_number"
+    string phone_number = 4;
+    // 地址信息
+    // @gotags: bson:"address" json:"address,omitempty"
+    string address = 5;
+    // 登出时间
+    // @gotags: bson:"logout_at" json:"logout_at,omitempty"
+    int64 logout_at = 6;
+    // 最近登录IP
+    // @gotags: bson:"login_ip" json:"login_ip,omitempty"
+    string login_ip = 7;
+    // 最近登录客户端
+    // @gotags: bson:"login_ua" json:"login_ua,omitempty"
+    string login_ua = 8;
+    // 最近登录时间
+    // @gotags: bson:"login_at" json:"login_at,omitempty"
+    int64 login_at = 9;
+    // 创建时间
+    // @gotags: bson:"created_at" json:"created_at,omitempty"
+    int64 created_at = 10;
+}

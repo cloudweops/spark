@@ -1,0 +1,26 @@
+[app]
+name = "spark"
+key  = "this is your app key"
+
+[app.http]
+host = "127.0.0.1"
+port = "8050"
+
+[app.grpc]
+host = "127.0.0.1"
+port = "18050"
+
+
+
+
+[mongodb]
+endpoints = ["10.186.146.46:27017"]
+username = "spark"
+password = "spark"
+database = "spark"
+
+[log]
+level = "debug"
+path = "logs"
+format = "text"
+to = "stdout"

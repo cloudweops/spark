@@ -1,8 +1,8 @@
 package client
 
 import (
-	"github.com/CloudWeOps/phoenix/logger"
-	"github.com/CloudWeOps/phoenix/logger/zap"
+	"github.com/cloudweops/phoenix/logger"
+	"github.com/cloudweops/phoenix/logger/zap"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

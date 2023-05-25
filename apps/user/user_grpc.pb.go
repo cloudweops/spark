@@ -22,7 +22,10 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RPCClient interface {
-	LoadInsertUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
+	// 创建用户
+	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*User, error)
+	// 查询用户详情
+	DescribeUser(ctx context.Context, in *DescribeUserRequest, opts ...grpc.CallOption) (*User, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*User, error)
 }
 
@@ -34,9 +37,18 @@ func NewRPCClient(cc grpc.ClientConnInterface) RPCClient {
 	return &rPCClient{cc}
 }
 
-func (c *rPCClient) LoadInsertUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
+func (c *rPCClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/cloudweops.spark.user.RPC/LoadInsertUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/cloudweops.spark.user.RPC/CreateUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rPCClient) DescribeUser(ctx context.Context, in *DescribeUserRequest, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
+	err := c.cc.Invoke(ctx, "/cloudweops.spark.user.RPC/DescribeUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +68,10 @@ func (c *rPCClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts 
 // All implementations must embed UnimplementedRPCServer
 // for forward compatibility
 type RPCServer interface {
-	LoadInsertUser(context.Context, *User) (*User, error)
+	// 创建用户
+	CreateUser(context.Context, *CreateUserRequest) (*User, error)
+	// 查询用户详情
+	DescribeUser(context.Context, *DescribeUserRequest) (*User, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*User, error)
 	mustEmbedUnimplementedRPCServer()
 }
@@ -65,8 +80,11 @@ type RPCServer interface {
 type UnimplementedRPCServer struct {
 }
 
-func (UnimplementedRPCServer) LoadInsertUser(context.Context, *User) (*User, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LoadInsertUser not implemented")
+func (UnimplementedRPCServer) CreateUser(context.Context, *CreateUserRequest) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+}
+func (UnimplementedRPCServer) DescribeUser(context.Context, *DescribeUserRequest) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DescribeUser not implemented")
 }
 func (UnimplementedRPCServer) UpdateUser(context.Context, *UpdateUserRequest) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
@@ -84,20 +102,38 @@ func RegisterRPCServer(s grpc.ServiceRegistrar, srv RPCServer) {
 	s.RegisterService(&RPC_ServiceDesc, srv)
 }
 
-func _RPC_LoadInsertUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(User)
+func _RPC_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RPCServer).LoadInsertUser(ctx, in)
+		return srv.(RPCServer).CreateUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cloudweops.spark.user.RPC/LoadInsertUser",
+		FullMethod: "/cloudweops.spark.user.RPC/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RPCServer).LoadInsertUser(ctx, req.(*User))
+		return srv.(RPCServer).CreateUser(ctx, req.(*CreateUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RPC_DescribeUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DescribeUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RPCServer).DescribeUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cloudweops.spark.user.RPC/DescribeUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RPCServer).DescribeUser(ctx, req.(*DescribeUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -128,8 +164,12 @@ var RPC_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*RPCServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "LoadInsertUser",
-			Handler:    _RPC_LoadInsertUser_Handler,
+			MethodName: "CreateUser",
+			Handler:    _RPC_CreateUser_Handler,
+		},
+		{
+			MethodName: "DescribeUser",
+			Handler:    _RPC_DescribeUser_Handler,
 		},
 		{
 			MethodName: "UpdateUser",

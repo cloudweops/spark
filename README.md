@@ -71,13 +71,13 @@ help                           Display this help screen
 # 把依赖的probuf文件复制到/usr/local/include
 
 # 创建protobuf文件目录
-$ make -pv /usr/local/include/github.com/CloudWeOps/phoenix/pb
+$ make -pv /usr/local/include/github.com/cloudweops/phoenix/pb
 
 # 找到最新的phoenix protobuf文件
 $ ls `go env GOPATH`/pkg/mod/github.com/CloudWeOps/
 
 # 复制到/usr/local/include
-$ cp -rf pb  /usr/local/include/github.com/CloudWeOps/phoenix/pb
+$ cp -rf pb  /usr/local/include/github.com/cloudweops/phoenix/pb
 ```
 
 2. 添加配置文件(默认读取位置: etc/spark.toml)

@@ -8,11 +8,11 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/CloudWeOps/phoenix/app"
+	"github.com/cloudweops/phoenix/app"
 	"github.com/spf13/cobra"
 
-	"github.com/CloudWeOps/phoenix/logger"
-	"github.com/CloudWeOps/phoenix/logger/zap"
+	"github.com/cloudweops/phoenix/logger"
+	"github.com/cloudweops/phoenix/logger/zap"
 
 	"github.com/cloudweops/spark/conf"
 	"github.com/cloudweops/spark/protocol"

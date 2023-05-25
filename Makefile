@@ -7,7 +7,7 @@ MOD_DIR := $(shell go env GOPATH)/pkg/mod
 PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/ | grep -v redis)
 GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/ | grep -v _test.go)
 
-PHOENIX_MODULE := "github.com/CloudWeOps/phoenix"
+PHOENIX_MODULE := "github.com/cloudweops/phoenix"
 PHOENIX_VERSION :=$(shell go list -m ${PHOENIX_MODULE} | cut -d' ' -f2)
 PHOENIX_PKG_PATH := ${MOD_DIR}/${PHOENIX_MODULE}@${PHOENIX_VERSION}
 
@@ -54,7 +54,7 @@ clean: ## Remove previous build
 	@rm -f dist/${PROJECT_NAME}
 
 install: ## Install depence go package
-	@go install github.com/CloudWeOps/phoenix/cmd/PHOENIX@latest
+	@go install github.com/cloudweops/phoenix/cmd/PHOENIX@latest
 	@go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 	@go install github.com/favadi/protoc-go-inject-tag@latest

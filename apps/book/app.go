@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/CloudWeOps/phoenix/http/request"
-	pb_request "github.com/CloudWeOps/phoenix/pb/request"
+	"github.com/cloudweops/phoenix/http/request"
+	pb_request "github.com/cloudweops/phoenix/pb/request"
 	"github.com/go-playground/validator/v10"
 	"github.com/imdario/mergo"
 	"github.com/rs/xid"

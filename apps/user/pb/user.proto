@@ -3,31 +3,59 @@ syntax = "proto3";
 package cloudweops.spark.user;
 option go_package = "github.com/cloudweops/spark/apps/user";
 
-import "google/protobuf/any.proto";
+import "github.com/cloudweops/phoenix/pb/request/request.proto";
 
 service RPC {
-    rpc LoadInsertUser(User) returns(User);
+    // 创建用户
+    rpc CreateUser(CreateUserRequest) returns(User);
+    // 查询用户详情
+    rpc DescribeUser(DescribeUserRequest) returns(User);
 	rpc UpdateUser(UpdateUserRequest) returns(User);
 }
 
+message CreateUserRequest{
+    User user = 1;
+}
+
+message DescribeUserRequest{
+    // 用户名
+    // @gotags: bson:"username" json:"username" validate:"required,gte=5,lte=30"
+    string username = 1;
+}
+
 message UpdateUserRequest{
-    string name = 1;
-    map<string,google.protobuf.Any> fields = 2;
+    CloudWeOps.phoenix.request.UpdateMode update_mode = 1;
+   // 密码
+    // @gotags: bson:"password" json:"password" validate:"gte=6,lte=30"
+    string password = 2;
+    // 邮箱地址
+    // @gotags: bson:"email" json:"email" validate:"lte=30"
+    string email = 3;
+    // 手机号码
+    // @gotags: bson:"phone_number" json:"phone_number" validate:"len=11"
+    string phone_number = 4;
+    // 地址信息
+    // @gotags: bson:"address" json:"address,omitempty"
+    string address = 5;
+     // 用户名
+    // @gotags: bson:"username" json:"username" validate:"required,gte=5,lte=30"
+    string username = 6;
+   
 }
 
 // User 用户账号
 message User {
     // 用户名
-    // @gotags: bson:"username" json:"username"
+    // @gotags: bson:"username" json:"username" validate:"required,gte=5,lte=30"
     string username = 1;
     // 密码
-    // @gotags: bson:"password" json:"password"
+    // @gotags: bson:"password" json:"password" validate:"required,gte=6,lte=30"
     string password = 2;
     // 邮箱地址
-    // @gotags: bson:"email" json:"email"
+    // @gotags: bson:"email" json:"email" validate:"required,lte=30"
     string email = 3;
     // 手机号码
-    // @gotags: bson:"phone_number" json:"phone_number"
+    // @gotags: bson:"phone_number" json:"phone_number" validate:"required,len=11"
     string phone_number = 4;
     // 地址信息
     // @gotags: bson:"address" json:"address,omitempty"
@@ -47,4 +75,7 @@ message User {
     // 创建时间
     // @gotags: bson:"created_at" json:"created_at,omitempty"
     int64 created_at = 10;
+    // 更新时间
+    // @gotags: bson:"update_at" json:"update_at,omitempty"
+    int64 update_at = 11;
 }

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package CloudWeOps.phoenix.page;
-option go_package = "github.com/CloudWeOps/phoenix/http/request";
+option go_package = "github.com/cloudweops/phoenix/http/request";
 
 message PageRequest {
     uint64 page_size = 1;

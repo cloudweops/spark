@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package CloudWeOps.phoenix.request;
-option go_package = "github.com/CloudWeOps/phoenix/pb/request";
+option go_package = "github.com/cloudweops/phoenix/pb/request";
 
 enum UpdateMode {
     PUT = 0;

@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package cloudweops.spark.article;
+option go_package = "github.com/cloudweops/spark/apps/article";
+
+import "apps/article/pb/article.proto";
+import "github.com/cloudweops/phoenix/pb/page/page.proto";
+
+service RPC {
+    rpc CreateArticle(CreateArticleRequest) returns(CreateArticleResponse);
+    rpc DescribeArticle(DescribeArticleRequest) returns(Article);
+    rpc QueryArticle(QueryArticleRequest) returns(ArticleSet);
+    rpc DeleteArticle(DeleteArticleRequest) returns(DeleteArticleResponse);
+}
+
+message CreateArticleRequest{
+    Article article = 1;
+}
+
+message CreateArticleResponse{
+    bool created = 1;
+}
+
+message DescribeArticleRequest{
+    int32 id =1;
+}
+
+message QueryArticleRequest{
+    // 分页参数
+    // @gotags: json:"page"
+    CloudWeOps.phoenix.page.PageRequest page = 1;
+    // 通过Id
+    // @gotags: json:"user_ids"
+    repeated string user_ids = 2;
+    // 是否获取数据
+    // @gotags: json:"skip_items"
+    bool skip_items = 3;
+    // 关键字查询
+    // @gotags: json:"keywords"
+    string keywords = 4;
+}
+
+message DeleteArticleRequest{
+    int32 id =1;
+}
+
+message DeleteArticleResponse{
+    bool deleted = 1;
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package cloudweops.spark.blogger;
+option go_package = "github.com/cloudweops/spark/apps/blogger";
+
+import "apps/blogger/pb/blogger.proto";
+
+service RPC {
+    rpc CreateBlogger(CreateBloggerRequest) returns(CreateBloggerResponse);
+    rpc DescribeBlogger(DescribeBloggerRequest) returns(DescribeBloggerResponse);
+    rpc UpdateBlogger(UpdateBloggerRequest) returns(UpdateBloggerResponse);
+}
+
+message CreateBloggerRequest {
+    cloudweops.spark.blogger.Blogger blogger = 1;
+}
+
+message CreateBloggerResponse {
+    cloudweops.spark.blogger.Blogger blogger = 1;
+}
+
+message DescribeBloggerRequest {
+    
+}
+
+message DescribeBloggerResponse {
+    cloudweops.spark.blogger.Blogger blogger = 1;
+}
+
+
+message UpdateBloggerRequest {
+    cloudweops.spark.blogger.Blogger blogger = 1;
+}
+
+message UpdateBloggerResponse {
+    cloudweops.spark.blogger.Blogger blogger = 1;
+}

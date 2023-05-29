@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package cloudweops.spark.blogger;
+option go_package = "github.com/cloudweops/spark/apps/blogger";
+
+message Blogger {
+    // 博客名
+    // @gotags: bson:"blog_name" json:"blog_name" validate:"required"
+    string blog_name = 1;
+    // 子标题
+    // @gotags: bson:"sub_title" json:"sub_title" validate:"required"
+    string sub_title = 2;
+    // 备案号
+    // @gotags: bson:"bei_an" json:"bei_an" validate:"required"
+    string bei_an = 3;
+    // 底部title
+    // @gotags: bson:"b_title" json:"b_title" validate:"required"
+    string b_title = 4;
+    // 版权声明
+    // @gotags: bson:"copyright" json:"copyright" validate:"required"
+    string copyright = 5;
+    // 专题说明
+    // @gotags: bson:"series_desc" json:"series_desc" validate:"required"
+    string series_desc = 6;
+    // 归档说明
+    // @gotags: bson:"archives_desc" json:"archives_desc" validate:"required"
+    string archives_desc = 7;
+}

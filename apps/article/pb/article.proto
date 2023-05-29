@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package cloudweops.spark.article;
+option go_package = "github.com/cloudweops/spark/apps/article";
+
+// Article 文章
+message Article {
+    // @gotags: bson:"id" json:"id"
+    int32 id = 1; // ID, store自行控制
+    // @gotags: bson:"author" json:"author" validate:"required"
+    string author = 2; // 作者名
+    // @gotags: bson:"slug" json:"slug" validate:"required"
+    string slug = 3; // 文章缩略名
+    // @gotags: bson:"title" json:"title" validate:"required"
+    string title = 4; // 标题
+    // @gotags: bson:"count" json:"count"
+    int32 count = 5; // 评论数量
+    // @gotags: bson:"content" json:"content" validate:"required"
+    string content = 6; // markdown内容
+    // @gotags: bson:"serie_id" json:"serie_id" validate:"required"
+    int32 serie_id = 7; // 专题ID
+    // @gotags: bson:"tags" json:"tags" validate:"required"
+    repeated string tags = 8; // tags
+    // @gotags: bson:"is_draft" json:"is_draft" validate:"required"
+    bool is_draft = 9; // 是否是草稿
+    // @gotags: bson:"thread" json:"thread" 
+    string thread = 10; // disqus thread
+    // @gotags: bson:"deleted_at" json:"deleted_at" 
+    int64 deleted_at = 11; // 删除时间
+    // @gotags: bson:"updated_at" json:"updated_at" 
+    int64 updated_at = 12; // 更新时间
+    // @gotags: bson:"created_at" json:"created_at" validate:"required"
+    int64 created_at = 13; // 创建时间
+
+    string header = 14; // header
+    string excerpt = 15; // 预览信息
+    string desc = 16; // 描述
+    Article prev = 17; // 上篇文章
+    Article next = 18; // 下篇文章
+}
+
+
+message ArticleSet {
+    // 总数量
+    // @gotags: bson:"total" json:"total"
+    int64 total = 1;
+    // 数据项
+    // @gotags: bson:"items" json:"items"
+    repeated Article items = 2;
+}
